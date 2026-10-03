@@ -41,16 +41,40 @@ namespace tpfinal
 
             return "";
         }
-
-
 		
-		
-
         public List<string> GetURLsSEO(ArbolGeneral<ItemCat> arbol)
 		{
-			return ["Implementar"];
+			List<string> urls = new List<string>();
+			if (arbol == null) return urls;
+			
+			// Se inicia la ruta con el dominio base o la raíz
+			GenerarURLsRec(arbol, "tienda.com", urls);
+			
+			return urls;
 		}
-        
+		private void GenerarURLsRec(ArbolGeneral<ItemCat> nodo, string rutaAcumulada, List<string> urls)
+		{
+			if (nodo == null) return;
+			
+			// Normalizamos el nombre
+			string nombreFormateado = nodo.getDatoRaiz().Nombre.Trim().ToLower().Replace(" ", "-");
+			string nuevaRuta = $"{rutaAcumulada}/{nombreFormateado}";
+			
+			// Si se alcanza un nodo hoja, la URL está completa y la agregamos al resultado
+			if (nodo.esHoja())
+			{
+				urls.Add(nuevaRuta);
+			}
+			else
+			{
+				// Si no es hoja, se procede a continuar recorriendo sus categorías hijas
+				foreach (var hijo in nodo.getHijos())
+				{
+					GenerarURLsRec(hijo, nuevaRuta, urls);
+				}
+			}
+		}
+		
         public List<List<string>> ConsultaNiveles(ArbolGeneral<ItemCat> arbol)
 		{
             List<List<string>> resultado = new List<List<string>>();
@@ -84,9 +108,29 @@ namespace tpfinal
 
 
         public List<ItemCat> Todos(ArbolGeneral<ItemCat> arbol)
-        {
-            return  [];
-        }
+		{
+			List<ItemCat> productos = new List<ItemCat>();
+			if (arbol == null) return productos;
+			TodosRec(arbol, productos);
+			return productos;
+		}
+
+		private void TodosRec(ArbolGeneral<ItemCat> nodo, List<ItemCat> productos)
+		{
+			if (nodo == null) return;
+			ItemCat itemActual = nodo.getDatoRaiz();
+			// Si el nodo actual es de tipo Producto, lo agregamos a la lista
+			if (itemActual != null && itemActual.Tipo == TipoElemento.Producto)
+			{
+				productos.Add(itemActual);
+			}
+			
+			// Recorremos recursivamente todos los hijos
+			foreach (var hijo in nodo.getHijos())
+			{
+				TodosRec(hijo, productos);
+			}
+		}
 
         public void Agregar(ArbolGeneral<ItemCat> arbol, ItemCat dato, string rutaAlPadre)
 		{
