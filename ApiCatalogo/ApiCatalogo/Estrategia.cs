@@ -50,12 +50,35 @@ namespace tpfinal
 			return ["Implementar"];
 		}
         
-
-              
-
         public List<List<string>> ConsultaNiveles(ArbolGeneral<ItemCat> arbol)
 		{
-            return [["Implementar"]];
+            List<List<string>> resultado = new List<List<string>>();
+			// Verificar si el arbol es nulo
+			if (arbol == null) return resultado;
+			// Crear una cola para realizar el recorrido por niveles
+			Cola<ArbolGeneral<ItemCat>> cola = new Cola<ArbolGeneral<ItemCat>>();
+			cola.encolar(arbol);
+			// Mientras la cola no este vacia, procesar los nodos por niveles
+			while (!cola.esVacia())
+			{
+    			int cantNiveles = cola.cantidadElementos();
+    			List<string> nivelActual = new List<string>();
+    			// Procesar todos los nodos del nivel actual
+    			for (int i = 0; i < cantNiveles; i++)
+    			{
+        			ArbolGeneral<ItemCat> nodoActual = cola.desencolar();
+        			nivelActual.Add(nodoActual.getDatoRaiz().Nombre);
+        			// Encolar los hijos del nodo actual para el siguiente nivel
+        			foreach (var hijo in nodoActual.getHijos())
+        			{
+            			cola.encolar(hijo);
+        			}
+    			}
+    			// Agregar el nivel actual al resultado
+    			resultado.Add(nivelActual);
+			}
+			// Retornar la lista de niveles
+			return resultado;
         }
 
 
