@@ -45,6 +45,29 @@ Swagger disponible en **`http://localhost:5000/swagger`**
 
 ---
 
+## 📱 Aplicación Móvil (Android)
+
+El proyecto incluye una **app móvil Android** que se conecta a la API y permite navegar el catálogo desde el celular.
+
+### ⬇️ Descargar la APK
+
+| Archivo | Tamaño | Plataforma |
+|---|---|---|
+| [`catalogo_movil.apk`](../catalogo_movil.apk) | ~15 MB | Android |
+
+### 📲 Instrucciones de instalación
+
+1. Descargá el archivo `catalogo_movil.apk`
+2. En tu Android, andá a **Ajustes → Seguridad**
+3. Activá la opción **"Instalar aplicaciones de fuentes desconocidas"**
+4. Abrí el archivo `.apk` descargado y tocá **Instalar**
+5. Asegurate de que la API esté corriendo antes de abrir la app
+
+> ⚠️ **Requisito:** La API debe estar ejecutándose en la misma red que el dispositivo Android para que la app pueda conectarse.
+
+---
+
+
 ## 📡 Endpoints
 
 | Método | Ruta | Descripción |
@@ -143,3 +166,4 @@ DFS: raíz → hijos → ... → hoja → agrega URL a la lista
 ---
 
 *Trabajo Final Práctico — Estructuras de Datos*
+
