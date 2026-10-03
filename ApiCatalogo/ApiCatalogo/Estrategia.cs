@@ -21,6 +21,7 @@ namespace tpfinal
             return url;
         }
 
+        // Método auxiliar para buscar la URL por ID en el árbol
         private string BuscarUrlPorId(ArbolGeneral<ItemCat> arbol,int id, string path)
         {
             string ruta;
@@ -30,7 +31,7 @@ namespace tpfinal
                 ruta = path + "/" + arbol.getDatoRaiz().Nombre;
 
             if (arbol.getDatoRaiz().Id == id)
-                return "tienda.com/" + ruta;
+                return  "link.com/" + ruta;
 
             foreach (var hijo in arbol.getHijos())
             {
@@ -68,8 +69,31 @@ namespace tpfinal
 
         public List<ItemCat> Buscar(ArbolGeneral<ItemCat> arbol, string elementoABuscar)
 		{
-			return [];
+            //creo la lista de resultados donde se guardaran los elementos encontrados
+			List<ItemCat> resultado = new List<ItemCat>();
+            // llamo al metodo auxiliar
+            BuscarRecursivo(arbol, elementoABuscar, resultado);
+            // devuelvo la lista de resultados
+            return resultado;
 		}
+
+        // Método auxiliar para realizar la búsqueda recursiva
+        private void BuscarRecursivo(ArbolGeneral<ItemCat> arbol, string elementoB, List<ItemCat> resultado)
+        {
+            // Usamos contains para buscar concidencias parciales
+            if (arbol.getDatoRaiz().Nombre.Contains(elementoB))
+            {
+                // si encuenta una coincidencia, agrega el elemento al resultado
+                resultado.Add(arbol.getDatoRaiz());
+            }
+
+            // debemos reccorrer los hijos del nodo actual para continuar la búsqueda
+            foreach (var hijo in arbol.getHijos())
+            {   
+                // Llamada recursiva para buscar en los hijos
+                BuscarRecursivo(hijo, elementoB, resultado);
+            }
+        }
             
     }
 }
