@@ -13,7 +13,32 @@ namespace tpfinal
 		
 		public string GetUrlSeoPorId(ArbolGeneral<ItemCat> arbol, int id)
         {
-            return "Implementar";
+            string url = BuscarUrlPorId(arbol, id, "");
+            if (url == "")
+                {
+                    return "URL no encontrada";
+                }
+            return url;
+        }
+
+        private string BuscarUrlPorId(ArbolGeneral<ItemCat> arbol,int id, string path)
+        {
+            string ruta;
+            if (path == "")
+                ruta = arbol.getDatoRaiz().Nombre;
+            else
+                ruta = path + "/" + arbol.getDatoRaiz().Nombre;
+
+            if (arbol.getDatoRaiz().Id == id)
+                return "tienda.com/" + ruta;
+
+            foreach (var hijo in arbol.getHijos())
+            {
+                string resultado = BuscarUrlPorId(hijo, id, ruta);
+                if (resultado != "") return resultado;
+            }
+
+            return "";
         }
         
 
