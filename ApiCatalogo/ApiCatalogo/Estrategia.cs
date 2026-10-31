@@ -134,7 +134,36 @@ namespace tpfinal
 
         public void Agregar(ArbolGeneral<ItemCat> arbol, ItemCat dato, string rutaAlPadre)
 		{
-            //implementar
+				//Creo La Variable para analizar el item a agregar
+           		ArbolGeneral<ItemCat> actual = arbol;
+
+				//desarmo la ruta y la convierto en varios string
+				foreach (string nombre in rutaAlPadre.Split("/"))
+				{
+					//si alguno esta vacio, continuo
+					if (nombre == "") continue;
+					//inicializo en nulo el encontrado
+					ArbolGeneral<ItemCat> encontrado = null;
+					//busco coincidencia entre el nombre de los hijos del dato actual
+					foreach (hijo.getDatoRaiz().Nombre.ToLower() = nombre.ToLower)
+					{
+						//si hay coincidencia lo pongo en encontrado
+						encontrado = hijo;
+						break;
+					}
+
+					//si se mantiene null entonces creo los nuevos Arboles
+					if (encontrado == null)
+
+					{
+						encontrado = new ArbolGeneral<ItemCat>(new ItemCat(nombre, TipoElemento.Categoria));
+           				actual.agregarHijo(encontrado);
+        			}
+        			actual = encontrado;
+   				 }
+				//Agrego el nuevo dato con su hijo
+    			actual.agregarHijo(new ArbolGeneral<ItemCat>(dato));
+				
         }
 
         public List<ItemCat> Buscar(ArbolGeneral<ItemCat> arbol, string elementoABuscar)
